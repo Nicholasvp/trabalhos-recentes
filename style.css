@@ -12,8 +12,9 @@
     --fc-tag:#090039;
 
     font-size: 62.5%;
-     --fs-body: 1.6rem;
-     --fs-heading: 4rem;
+    --fs-body: 1.6rem;
+    --fs-heading: clamp(4rem, 1rem + 5vw, 5.6rem);
+    --fs-heading-sm: clamp(3rem, 1rem + 3vw, 4rem);
 
 }
 
@@ -24,13 +25,48 @@
     margin-bottom: 100px;
 }
 
+@media (min-width:700px) {
+    
+    .page {
+        max-width: 117rem;
+        padding: 0 5rem;
+    }
+
+    main {
+        grid-template-areas:"A B B"
+        "C C D";
+    }
+
+    main div:nth-child(1){
+        grid-area: A;
+        animation: downtop 1s 550ms backwards;
+    }
+
+    main div:nth-child(2){
+        grid-area: B;
+        animation: topdown 1s 550ms backwards;
+    }
+
+    main div:nth-child(3){
+        grid-area: C;
+        animation: topdown 1s 550ms backwards;
+    }
+    
+    main div:nth-child(4){
+        grid-area: D;
+        animation: downtop 1s 550ms backwards;
+    }
+}
+
 body {
     background-color: var(--bg-primary);
     text-align: center;
 }
 header {
     margin: 10rem 0 8rem;
+    animation: topdown 1s 300ms backwards;
 }
+
 header p {
     color: var(--fc-secondary);
     font-size: var(--fs-body);
@@ -55,6 +91,7 @@ main {
 }
 .card {
     position: relative;
+    animation: left 1.3s 500ms backwards;
 }
 
 .card p span{
@@ -71,10 +108,10 @@ main {
     align-items: center;
 
     width: fit-content;
-
 }
+
 .card p {
-    font-size: var(--fs-heading);
+    font-size: var(--fs-heading-sm);
     color: var(--fc-primary);
     text-transform: uppercase;
     font-weight: 800;
@@ -85,9 +122,14 @@ main {
 
     display: flex;
     flex-direction: column;
-    gap: 2.4rem
+    gap: 2.4rem;
+}
 
-    
+footer p {
+    font-family: var(--ff-text);
+    font-size: var(--fs-body);
+    color: var(--fc-secondary);
+    margin-bottom: 20px;
 }
 
 img {
@@ -97,5 +139,42 @@ img {
     object-fit: cover;
 
     border-radius: 6px;
+    transition: transform 500ms;
+    filter: brightness(0.8);
 }
 
+img:hover {
+    transform: scale(1.1);
+}
+
+@keyframes topdown {
+    0% {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes downtop {
+    0% {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes left {
+    0% {
+        opacity: 0;
+        transform: translateX(-15px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
